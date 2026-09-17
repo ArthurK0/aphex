@@ -86,7 +86,7 @@ services:
     # proxy in front. Coolify and Dokploy route to the container themselves, and
     # publishing here would expose the app on :3000 without TLS alongside it.
     ports:
-      - '3000:3000'
+      - '20341:3000'
 
   # ── Postgres, if you'd rather not run on SQLite ─────────────────────────────
   # SQLite is a real production option here, and the default for a reason: one
