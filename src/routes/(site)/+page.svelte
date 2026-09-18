@@ -29,7 +29,7 @@
 		shows at minute zero, before any content exists. It is written to get you
 		into the studio and back out again, not to apologise for being empty.
 	-->
-	{#if count === 0}
+	{#if count === 1}
 		<section class="intro">
 			<div class="intro__lead">
 				<h1>Your CMS and your site<br />are the same app.</h1>
