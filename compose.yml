@@ -39,7 +39,7 @@ services:
       - ${APHEX_DATA:-aphex_data}:/data
 
     ports:
-      - "${APHEX_BIND_ADDRESS:-127.0.0.1}:${APHEX_PORT:-24132}:${APHEX_INTERNAL_PORT:-3000}"
+      - "${APHEX_BIND_ADDRESS:-127.0.0.1}:${APHEX_PORT:-3000}:${APHEX_LOCAL_PORT:-3000}"
 
   db:
     image: ${POSTGRES_IMAGE:-postgres:18-alpine}
