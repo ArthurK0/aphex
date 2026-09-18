@@ -13,6 +13,12 @@ const authHook: Handle = async ({ event, resolve }) => {
 	return svelteKitHandler({ event, resolve, auth, building });
 };
 
+const bodySizeHook: Handle = async ({ event, resolve }) => {
+  return resolve(event, {
+    bodySize: 50 * 1024 * 1024 // 50 MB, подгоните под свои нужды
+  });
+};
+
 const aphexHook = createCMSHook(cmsConfig);
 
 // Populate demo content the first time the app runs against an untouched site
@@ -42,4 +48,4 @@ const bootstrapHook: Handle = async ({ event, resolve }) => {
 	return resolve(event);
 };
 
-export const handle = sequence(authHook, aphexHook, bootstrapHook, seedHook);
+export const handle = sequence(authHook, aphexHook, bootstrapHook, seedHook,bodySizeHook);
