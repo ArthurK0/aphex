@@ -20,7 +20,7 @@
 </script>
 
 <svelte:head>
-	<title>{count === 0 ? 'Aphex 22' : 'Pages 11'} 222</title>
+	<title>{count === 0 ? 'Aphex' : 'Pages'} 222</title>
 </svelte:head>
 
 <main>
