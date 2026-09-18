@@ -68,7 +68,7 @@ services:
 
 volumes:
   aphex_data:
-    name: ${APHEX_DATA:-aphex_data}
+    name: aphex_data
 #
 #  aphex_db:
 #    name: ${APHEX_DB:-aphex_db}
