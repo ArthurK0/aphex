@@ -36,7 +36,7 @@ services:
       APHEX_EMAIL_FROM: ${APHEX_EMAIL_FROM:-}
 
     volumes:
-      - aphex_data:/data
+      - ${APHEX_DATA}:/data
 
     ports:
       - "${APHEX_BIND_ADDRESS:-127.0.0.1}:${APHEX_PORT:-3000}:${APHEX_LOCAL_PORT:-3000}"
@@ -66,9 +66,9 @@ services:
     # PostgreSQL does NOT need to be published to the host.
     # The app reaches it through Docker DNS: db:5432.
 
-#volumes:
-#  aphex_data:
-#    name: ${APHEX_DATA:-aphex_data}
+volumes:
+  aphex_data:
+    name: ${APHEX_DATA:-aphex_data}
 #
 #  aphex_db:
 #    name: ${APHEX_DB:-aphex_db}
