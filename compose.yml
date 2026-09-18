@@ -11,7 +11,7 @@ services:
         condition: service_healthy
 
     environment:
-      BODY_SIZE_LIMIT: ${BODY_SIZE_LIMIT:-52428800}
+      
       NODE_ENV: production
       PORT: ${APHEX_INTERNAL_PORT:-3000}
       # Public URL / Auth
