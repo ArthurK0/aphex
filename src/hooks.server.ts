@@ -9,15 +9,18 @@ import { bootstrapPolicy } from '$lib/server/auth/auth.config';
 import { seedEnabled, seedOnFirstRun } from '$lib/server/seed';
 import cmsConfig from '../aphex.config';
 
-const authHook: Handle = async ({ event, resolve }) => {
-	return svelteKitHandler({ event, resolve, auth, building });
-};
 
 const bodySizeHook: Handle = async ({ event, resolve }) => {
   return resolve(event, {
     bodySize: 50 * 1024 * 1024 // 50 MB, подгоните под свои нужды
   });
 };
+
+const authHook: Handle = async ({ event, resolve }) => {
+	return svelteKitHandler({ event, resolve, auth, building });
+};
+
+
 
 const aphexHook = createCMSHook(cmsConfig);
 
@@ -47,5 +50,10 @@ const bootstrapHook: Handle = async ({ event, resolve }) => {
 	}
 	return resolve(event);
 };
-
-export const handle = sequence(authHook, aphexHook, bootstrapHook, seedHook,bodySizeHook);
+export const handle = sequence(
+  bodySizeHook,
+  authHook,
+  aphexHook,
+  bootstrapHook,
+  seedHook
+);
