@@ -48,9 +48,9 @@ const bootstrapHook: Handle = async ({ event, resolve }) => {
 	return resolve(event);
 };
 export const handle = sequence(
+  bodySizeHook,
   authHook,
   aphexHook,
   bootstrapHook,
-  seedHook,
-  bodySizeHook
+  seedHook
 );
