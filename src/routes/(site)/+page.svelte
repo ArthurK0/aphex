@@ -77,7 +77,7 @@
 	{:else}
 		<section class="intro intro--list">
 			<div class="intro__lead">
-				<h1>Pages</h1>
+				<h1>Pages 11</h1>
 				<p class="lede">
 					Read from the CMS via the Local API in <code>src/routes/(site)/+page.server.ts</code>.
 				</p>
