@@ -21,7 +21,7 @@ services:
       APHEX_DATABASE: ${APHEX_DATABASE:-postgres}
       DATABASE_URL: postgresql://${PG_USER}:${PG_PASSWORD}@db:${PG_INTERNAL_PORT:-5432}/${PG_DATABASE}
       # Aphex storage
-      APHEX_UPLOADS_DIR: ${APHEX_UPLOADS_DIR:-/data/uploads}
+      APHEX_UPLOADS_DIR: /data/uploads
       APHEX_EMBEDDED_WORKER: ${APHEX_EMBEDDED_WORKER:-true}
 
       APHEX_SECRET_ENCRYPTION_KEY: ${APHEX_SECRET_ENCRYPTION_KEY:-}
