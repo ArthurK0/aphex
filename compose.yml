@@ -11,6 +11,7 @@ services:
         condition: service_healthy
 
     environment:
+      BODY_SIZE_LIMIT: ${BODY_SIZE_LIMIT:-50M}
       NODE_ENV: production
       PORT: ${APHEX_INTERNAL_PORT:-3000}
       AUTH_URL: ${AUTH_URL:?AUTH_URL is required}
