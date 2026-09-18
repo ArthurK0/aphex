@@ -1,0 +1,74 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ${APHEX_DOCKERFILE:-Dockerfile}
+
+    restart: unless-stopped
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+    environment:
+      NODE_ENV: production
+      PORT: ${APHEX_INTERNAL_PORT:-3000}
+      # Public URL / Auth
+      AUTH_URL: ${AUTH_URL:?AUTH_URL is required}
+      ORIGIN: ${ORIGIN:-${AUTH_URL}}
+      AUTH_SECRET: ${AUTH_SECRET:?AUTH_SECRET is required}
+      # Aphex -> PostgreSQL
+      APHEX_DATABASE: ${APHEX_DATABASE:-postgres}
+      DATABASE_URL: postgresql://${PG_USER}:${PG_PASSWORD}@db:${PG_INTERNAL_PORT:-5432}/${PG_DATABASE}
+      # Aphex storage
+      APHEX_UPLOADS_DIR: ${APHEX_UPLOADS_DIR:-/data/uploads}
+      APHEX_EMBEDDED_WORKER: ${APHEX_EMBEDDED_WORKER:-true}
+
+      APHEX_SECRET_ENCRYPTION_KEY: ${APHEX_SECRET_ENCRYPTION_KEY:-}
+      APHEX_ASSET_SIGNING_SECRET: ${APHEX_ASSET_SIGNING_SECRET:-}
+
+      # Bootstrap / auth
+      APHEX_BOOTSTRAP_EMAIL: ${APHEX_BOOTSTRAP_EMAIL:-}
+      AUTH_INVITE_ONLY: ${AUTH_INVITE_ONLY:-true}
+
+      # Email
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      APHEX_EMAIL_FROM: ${APHEX_EMAIL_FROM:-}
+
+    volumes:
+      - ${APHEX_DATA:-aphex_data}:/data
+
+    ports:
+      - "${APHEX_BIND_ADDRESS:-127.0.0.1}:${APHEX_PORT:-24132}:${APHEX_INTERNAL_PORT:-3000}"
+
+  db:
+    image: ${POSTGRES_IMAGE:-postgres:18-alpine}
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DATABASE}
+      PGDATA: ${PGDATA_INTERNAL_PATH:-/var/lib/postgresql/18/docker}
+
+    volumes:
+      - ${APHEX_DB:-aphex_db}:/var/lib/postgresql
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U $${PG_USER} -d $${PG_DATABASE}"
+        ]
+      interval: ${PG_HEALTHCHECK_INTERVAL:-10s}
+      timeout: ${PG_HEALTHCHECK_TIMEOUT:-5s}
+      retries: ${PG_HEALTHCHECK_RETRIES:-5}
+
+    # PostgreSQL does NOT need to be published to the host.
+    # The app reaches it through Docker DNS: db:5432.
+
+volumes:
+  aphex_data:
+    name: ${APHEX_DATA:-aphex_data}
+
+  aphex_db:
+    name: ${APHEX_DB:-aphex_db}
