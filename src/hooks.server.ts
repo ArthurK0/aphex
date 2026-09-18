@@ -14,6 +14,9 @@ const authHook: Handle = async ({ event, resolve }) => {
 	return svelteKitHandler({ event, resolve, auth, building });
 };
 
+const bodySizeHook: Handle = async ({ event, resolve }) => {
+  return resolve(event, { bodySize: 50 * 1024 * 1024 });
+};
 
 
 const aphexHook = createCMSHook(cmsConfig);
@@ -48,5 +51,6 @@ export const handle = sequence(
   authHook,
   aphexHook,
   bootstrapHook,
-  seedHook
+  seedHook,
+  bodySizeHook
 );
