@@ -36,7 +36,7 @@ services:
       APHEX_EMAIL_FROM: ${APHEX_EMAIL_FROM:-}
 
     volumes:
-      - ${APHEX_DATA:-aphex_data}:/data
+      - ${APHEX_DATA:-aphex_data}:/var/lib/aphex
 
     ports:
       - "${APHEX_BIND_ADDRESS:-127.0.0.1}:${APHEX_PORT:-3000}:${APHEX_LOCAL_PORT:-3000}"
