@@ -32,7 +32,7 @@
 	{#if count === 0}
 		<section class="intro">
 			<div class="intro__lead">
-				<h1>Your CMS and your site<br />are the same app.</h1>
+				<h1>Your CMS and your site<br />are the same app. 2222. 2 22 .</h1>
 				<p class="lede">
 					This page is server-rendered from the Local API — no HTTP round-trip, no separate frontend
 					to deploy. Publish something and it appears here.
